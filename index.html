@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>焰藏 — 日式串燒居酒屋</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0a0806;
+      --charcoal: #1a1510;
+      --red: #b91c1c;
+      --red-light: #dc2626;
+      --amber: #f59e0b;
+      --gold: #d97706;
+      --cream: #f5ede0;
+      --white: #ffffff;
+      --gray: #888;
+      --border: #2a1f14;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--charcoal); color: var(--cream); line-height: 1.7; overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; background: rgba(26,21,16,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-logo { font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 900; color: var(--amber); text-decoration: none; letter-spacing: 0.1em; }
+    .nav-links { display: flex; gap: 28px; list-style: none; align-items: center; }
+    .nav-links a { color: var(--cream); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-cta { background: var(--red); color: var(--white) !important; padding: 9px 22px; border-radius: 4px; font-size: 13px !important; font-weight: 600 !important; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--red-light); }
+
+    .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80') center/cover no-repeat; opacity: 0.35; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(10,8,6,0.95) 0%, rgba(10,8,6,0.6) 60%, transparent 100%); }
+    .hero-content { position: relative; z-index: 1; max-width: 560px; padding: 0 48px; }
+    .hero-badge { display: inline-block; background: rgba(245,158,11,0.15); color: var(--amber); border: 1px solid rgba(245,158,11,0.3); font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(44px, 7vw, 80px); font-weight: 900; line-height: 1.1; color: var(--white); margin-bottom: 24px; }
+    .hero h1 span { color: var(--amber); }
+    .hero-sub { font-size: 16px; color: rgba(245,237,224,0.6); font-weight: 300; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-red { background: var(--red); color: var(--white); padding: 14px 32px; border-radius: 4px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-red:hover { background: var(--red-light); transform: translateY(-1px); }
+    .btn-ghost { border: 1.5px solid var(--amber); color: var(--amber); padding: 14px 32px; border-radius: 4px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-ghost:hover { background: rgba(245,158,11,0.1); }
+
+    .marquee-strip { background: var(--red); padding: 12px 0; overflow: hidden; }
+    .marquee-track { display: flex; gap: 60px; animation: marquee 25s linear infinite; white-space: nowrap; }
+    .marquee-strip span { font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.8); }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .menu-section { padding: 100px 48px; background: var(--black); }
+    .section-header { max-width: 1100px; margin: 0 auto 56px; display: flex; justify-content: space-between; align-items: flex-end; }
+    .section-header .eyebrow { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amber); margin-bottom: 8px; }
+    .section-header h2 { font-family: 'Noto Serif TC', serif; font-size: 36px; font-weight: 700; color: var(--white); }
+    .menu-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .menu-card { background: var(--charcoal); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+    .menu-card:hover { transform: translateY(-4px); border-color: var(--amber); }
+    .menu-card img { width: 100%; aspect-ratio: 16/10; object-fit: cover; }
+    .menu-card-body { padding: 24px; }
+    .menu-badge { display: inline-block; background: rgba(185,28,28,0.2); color: var(--red-light); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; margin-bottom: 10px; }
+    .menu-card h3 { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .menu-card p { font-size: 13px; color: rgba(245,237,224,0.5); margin-bottom: 16px; }
+    .menu-price { font-size: 20px; font-weight: 700; color: var(--amber); }
+    .menu-price small { font-size: 12px; font-weight: 400; color: var(--gray); margin-left: 4px; }
+
+    .drinks { background: var(--charcoal); padding: 100px 48px; }
+    .drinks-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+    .drinks-inner h2 { font-family: 'Noto Serif TC', serif; font-size: 32px; font-weight: 700; color: var(--white); margin-bottom: 48px; }
+    .drinks-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; text-align: center; }
+    .drink-item h3 { font-size: 14px; font-weight: 600; color: var(--amber); margin-bottom: 4px; }
+    .drink-item p { font-size: 13px; color: rgba(245,237,224,0.5); }
+    .drink-item .price { font-size: 16px; font-weight: 700; color: var(--white); margin-top: 8px; }
+
+    .locations { padding: 100px 48px; background: var(--black); }
+    .locations-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .location-card { background: var(--charcoal); border: 1px solid var(--border); border-radius: 8px; padding: 36px; }
+    .location-badge { display: inline-block; background: rgba(245,158,11,0.15); color: var(--amber); font-size: 10px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; margin-bottom: 16px; }
+    .location-card h3 { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .location-card p { font-size: 14px; color: rgba(245,237,224,0.5); margin-bottom: 4px; }
+    .location-status { margin-top: 20px; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+
+    .cta-band { background: var(--red); padding: 80px 48px; text-align: center; }
+    .cta-band h2 { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 4vw, 42px); font-weight: 700; color: var(--white); margin-bottom: 16px; }
+    .cta-band p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
+    .btn-white { background: var(--white); color: var(--red); padding: 14px 32px; border-radius: 4px; font-size: 14px; font-weight: 600; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-white:hover { background: var(--cream); transform: translateY(-1px); }
+
+    footer { background: var(--black); padding: 64px 48px 32px; border-top: 1px solid var(--border); }
+    .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-brand .nav-logo { font-size: 26px; display: inline-block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; color: rgba(245,237,224,0.4); line-height: 1.8; }
+    .footer-col h4 { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 20px; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a { color: rgba(245,237,224,0.4); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--amber); }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border); font-size: 12px; color: rgba(245,237,224,0.3); display: flex; justify-content: space-between; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px; }
+      .menu-grid, .locations-grid { grid-template-columns: 1fr; }
+      .drinks-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .section-header { flex-direction: column; gap: 12px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">焰藏</a>
+  <ul class="nav-links">
+    <li><a href="#menu">菜單</a></li>
+    <li><a href="#drinks">酒水</a></li>
+    <li><a href="#locations">據點</a></li>
+    <li><a href="#reservation" class="nav-cta">線上訂位</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🍢 日式串燒 · 台北</div>
+    <h1>炭火一字排開<br><span>今夜，在焰藏</span></h1>
+    <p class="hero-sub">備長炭高溫直火，每一串都在三分熟與焦香之間，找尋那一秒的完美。</p>
+    <div class="hero-actions">
+      <a href="#reservation" class="btn-red">線上訂位</a>
+      <a href="#menu" class="btn-ghost">查看菜單</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>🍢 備長炭直火 &nbsp;&nbsp;🍶 日本地酒 &nbsp;&nbsp;🔥 當日串燒 &nbsp;&nbsp;📍 營業至凌晨 2 點 &nbsp;&nbsp;🎤 現場音樂</span>
+    <span>🍢 備長炭直火 &nbsp;&nbsp;🍶 日本地酒 &nbsp;&nbsp;🔥 當日串燒 &nbsp;&nbsp;📍 營業至凌晨 2 點 &nbsp;&nbsp;🎤 現場音樂</span>
+  </div>
+</div>
+
+<section class="menu-section" id="menu">
+  <div class="section-header">
+    <div>
+      <p class="eyebrow">今夜主打</p>
+      <h2>串燒系列</h2>
+    </div>
+    <a href="#" style="color:var(--amber);font-size:14px;font-weight:600;text-decoration:none;">完整菜單 →</a>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=600&q=80" alt="和牛串">
+      <div class="menu-card-body">
+        <span class="menu-badge">招牌</span>
+        <h3>A5 和牛蔥串</h3>
+        <p>A5 日本和牛切片包裹青蔥，備長炭直火 3 分鐘</p>
+        <div class="menu-price">NT$ 180 <small>/ 串</small></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&q=80" alt="雞腿肉">
+      <div class="menu-card-body">
+        <span class="menu-badge">人氣</span>
+        <h3>手羽先燒</h3>
+        <p>去骨雞翅包蔥，表皮酥脆膠質丰富，配啤酒一絕</p>
+        <div class="menu-price">NT$ 95 <small>/ 份</small></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=80" alt="牛肋條">
+      <div class="menu-card-body">
+        <span class="menu-badge">經典</span>
+        <h3>牛肋條鹽烤</h3>
+        <p>美國 Choice 牛肋條，切塊後鹽烤，保留肉汁精華</p>
+        <div class="menu-price">NT$ 145 <small>/ 串</small></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="蔬菜串">
+      <div class="menu-card-body">
+        <span class="menu-badge">新品</span>
+        <h3>玉米筍奶油燒</h3>
+        <p>新鮮玉米筍包裹奶油，香甜與炭香同時存在</p>
+        <div class="menu-price">NT$ 75 <small>/ 份</small></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1603360946369-dc9bb6258143?w=600&q=80" alt="五花肉">
+      <div class="menu-card-body">
+        <span class="menu-badge">招牌</span>
+        <h3>醬燒五花肉串</h3>
+        <p>特製蒲燒醬反覆刷烤，油脂與醬香完美結合</p>
+        <div class="menu-price">NT$ 120 <small>/ 串</small></div>
+      </div>
+    </div>
+    <div class="menu-card">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="大蝦">
+      <div class="menu-card-body">
+        <span class="menu-badge">限定</span>
+        <h3>野生大明蝦</h3>
+        <p>野生捕撈大明蝦，炭火直烤 2 分鐘，蝦膏濃郁</p>
+        <div class="menu-price">NT$ 220 <small>/ 隻</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="drinks" id="drinks">
+  <div class="drinks-inner">
+    <h2>酒水</h2>
+    <div class="drinks-grid">
+      <div class="dri"> <div class="drink-item"><h3>獺祭 純米大吟醸</h3><p>日本山形縣</p><div class="price">NT$ 380 / 合</div></div></div>
+      <div class="drink-item"><h3>十四代 純米吟醸</h3><p>日本山形縣</p><div class="price">NT$ 420 / 合</div></div>
+      <div class="drink-item"><h3>Asahi 生啤</h3><p>扎啤・無限續杯</p><div class="price">NT$ 120 / 杯</div></div>
+      <div class="drink-item"><h3>Highball</h3><p>角瓶 + 蘇打水</p><div class="price">NT$ 150 / 杯</div></div>
+      <div class="drink-item"><h3>柚子酒</h3><p>九州柚子</p><div class="price">NT$ 130 / 杯</div></div>
+      <div class="drink-item"><h3>梅酒 highball</h3><p>紀州南高梅</p><div class="price">NT$ 160 / 杯</div></div>
+      <div class="drink-item"><h3>波本</h3><p>Maker's Mark</p><div class="price">NT$ 200 / 杯</div></div>
+      <div class="drink-item"><h3>可樂娜</h3><p>Corona</p><div class="price">NT$ 100 / 瓶</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="locations" id="locations">
+  <div class="locations-grid">
+    <div class="location-card">
+      <span class="location-badge">本店</span>
+      <h3>台北・東區店</h3>
+      <p>台北市大安區忠孝東路四段 101 號</p>
+      <p>捷運忠孝敦化站 3 號出口步行 4 分鐘</p>
+      <p>18:00 - 02:00（凌晨）</p>
+      <div class="location-status"><span class="status-dot"></span><span style="color:#4ade80">營業中</span></div>
+    </div>
+    <div class="location-card">
+      <span class="location-badge">標準店</span>
+      <h3>台北・信義店</h3>
+      <p>台北市信義區松壽路 12 號</p>
+      <p>捷運市政府站步行 5 分鐘</p>
+      <p>18:00 - 01:00（凌晨）</p>
+      <div class="location-status"><span class="status-dot"></span><span style="color:#4ade80">營業中</span></div>
+    </div>
+    <div class="location-card">
+      <span class="location-badge">新店</span>
+      <h3>新北・板橋店</h3>
+      <p>新北市板橋區中山路一段 198 號</p>
+      <p>捷運府中站步行 6 分鐘</p>
+      <p>18:00 - 01:00（凌晨）</p>
+      <div class="location-status"><span class="status-dot" style="background:#facc15"></span><span style="color:#facc15">明日 18:00</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="reservation">
+  <h2>炭火已升，歡迎入座</h2>
+  <p>座位有限，建議提前訂位。二人以上即可預訂吧台位，觀看師傅炭烤表演。</p>
+  <a href="tel:0277118899" class="btn-white">致電訂位：02-7711-8899</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">焰藏</a>
+      <p>備長炭直火串燒，深夜食堂的靈魂。我們相信，最好的下酒菜，是師傅在你面前炭烤的那一串。</p>
+    </div>
+    <div class="footer-col">
+      <h4>串燒</h4>
+      <ul>
+        <li><a href="#">和牛串</a></li>
+        <li><a href="#">手羽先</a></li>
+        <li><a href="#">牛肋條</a></li>
+        <li><a href="#">海鮮串</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>聯絡</h4>
+      <ul>
+        <li><a href="tel:0277118899">02-7711-8899</a></li>
+        <li><a href="mailto:yakiniku@honoo.tw">yakiniku@honoo.tw</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 焰藏 Yakitori Izakaya. All rights reserved.</span>
+    <span>台北市大安區忠孝東路四段 101 號</span>
+  </div>
+</footer>
+
+</body>
+</html>
